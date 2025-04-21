@@ -37,7 +37,7 @@ Coded by www.creative-tim.com
 
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
-import Penjualan from "layouts/penjualan";
+import Sales from "layouts/sales";
 import Tables from "layouts/tables";
 import Billing from "layouts/billing";
 import RTL from "layouts/rtl";
@@ -60,11 +60,11 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Penjualan",
-    key: "penjualan",
+    name: "Sales",
+    key: "sales",
     icon: <Icon fontSize="small">point_of_sale</Icon>,
-    route: "/penjualan",
-    component: <Penjualan />,
+    route: "/sales",
+    component: <Sales />,
   },
   {
     type: "collapse",
