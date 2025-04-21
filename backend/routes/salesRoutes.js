@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
     if (err) {
       return res.status(500).json({ message: "Error fetching data", error: err });
     }
-    console.log(results); // Menampilkan data sales di backend
+    // console.log(results); // Menampilkan data sales di backend
     res.json(results);
   });
 });

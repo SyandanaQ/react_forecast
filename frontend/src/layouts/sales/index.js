@@ -40,7 +40,7 @@ function Sales() {
   useEffect(() => {
     const fetchSales = async () => {
       const data = await getSales();
-      console.log(data); // Menampilkan data yang diterima dari backend
+      // console.log(data); // Menampilkan data yang diterima dari backend
       setSales(data);
     };
     fetchSales();
@@ -106,7 +106,7 @@ function Sales() {
 
   // Kolom tabel
   const columns = [
-    { Header: "ID", accessor: "id", align: "left" },
+    { Header: "No.", accessor: "id", align: "left" },
     { Header: "Nama Produk", accessor: "nama_produk", align: "left" },
     { Header: "Harga", accessor: "harga", align: "center" },
     { Header: "Tanggal", accessor: "tanggal", align: "center" },
@@ -114,8 +114,8 @@ function Sales() {
   ];
 
   // Baris tabel
-  const rows = sales.map((sale) => ({
-    id: sale.id,
+  const rows = sales.map((sale, index) => ({
+    id: index + 1,
     nama_produk: sale.nama_produk,
     harga: `Rp ${sale.harga}`,
     tanggal: sale.tanggal ? sale.tanggal.split("T")[0] : "", // Hanya tampilkan tanggal
