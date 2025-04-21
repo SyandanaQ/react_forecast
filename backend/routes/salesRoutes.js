@@ -4,11 +4,12 @@ const db = require("../db");
 
 // GET - Ambil semua data sales
 router.get("/", (req, res) => {
-  const query = "SELECT * FROM sales";
-  db.query(query, (err, results) => {
+    const query = "SELECT id, nama_produk, harga, DATE_FORMAT(tanggal, '%Y-%m-%d') AS tanggal FROM sales";
+    db.query(query, (err, results) => {
     if (err) {
       return res.status(500).json({ message: "Error fetching data", error: err });
     }
+    console.log(results); // Menampilkan data sales di backend
     res.json(results);
   });
 });

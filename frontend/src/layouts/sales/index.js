@@ -33,15 +33,18 @@ function Sales() {
     harga: "",
     tanggal: "",
   });
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [saleToDelete, setSaleToDelete] = useState(null); // Menyimpan ID penjualan yang akan dihapus
 
   // Ambil data dari backend saat komponen dimuat
   useEffect(() => {
     const fetchSales = async () => {
       const data = await getSales();
+      console.log(data); // Menampilkan data yang diterima dari backend
       setSales(data);
     };
     fetchSales();
-  }, [sales]);
+  }, []);
 
   // Input perubahan
   const handleChange = (e) => {
@@ -96,6 +99,11 @@ function Sales() {
     }
   };
 
+  const handleDeleteConfirmation = (sale) => {
+    setSaleToDelete(sale); // Simpan data yang akan dihapus
+    setOpenDeleteDialog(true); // Tampilkan dialog konfirmasi
+  };
+
   // Kolom tabel
   const columns = [
     { Header: "ID", accessor: "id", align: "left" },
@@ -116,7 +124,7 @@ function Sales() {
         <MDButton variant="outlined" color="info" onClick={() => handleEdit(sale)}>
           Edit
         </MDButton>
-        <MDButton variant="outlined" color="error" onClick={() => handleDelete(sale.id)}>
+        <MDButton variant="outlined" color="error" onClick={() => handleDeleteConfirmation(sale)}>
           Hapus
         </MDButton>
       </>
@@ -256,6 +264,33 @@ function Sales() {
           </MDButton>
           <MDButton onClick={handleSubmit} color="success">
             Simpan
+          </MDButton>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={openDeleteDialog} onClose={() => setOpenDeleteDialog(false)}>
+        <DialogTitle>Konfirmasi Hapus Data</DialogTitle>
+        <DialogContent>
+          <MDTypography>Apakah Anda yakin ingin menghapus data ini?</MDTypography>
+        </DialogContent>
+        <DialogActions>
+          <MDButton onClick={() => setOpenDeleteDialog(false)} color="secondary">
+            Batal
+          </MDButton>
+          <MDButton
+            onClick={async () => {
+              try {
+                // Hapus data yang terpilih
+                await deleteSale(saleToDelete.id);
+                setSales(sales.filter((sale) => sale.id !== saleToDelete.id)); // Update state setelah data dihapus
+                setOpenDeleteDialog(false); // Tutup dialog
+              } catch (error) {
+                console.error("Gagal menghapus data", error);
+              }
+            }}
+            color="error"
+          >
+            Hapus
           </MDButton>
         </DialogActions>
       </Dialog>
