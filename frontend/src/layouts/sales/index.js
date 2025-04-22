@@ -72,7 +72,6 @@ function Sales() {
       setNewSale({ nama_produk: "", harga: "", tanggal: "" });
 
       // Lakukan refresh halaman (bisa dihilangkan jika tidak perlu)
-      window.location.reload();
     } catch (error) {
       console.error("Gagal menyimpan data", error);
     }
@@ -121,10 +120,10 @@ function Sales() {
     tanggal: sale.tanggal ? sale.tanggal.split("T")[0] : "", // Hanya tampilkan tanggal
     aksi: (
       <>
-        <MDButton variant="outlined" color="info" onClick={() => handleEdit(sale)}>
+        <MDButton variant="gradient" color="info" onClick={() => handleEdit(sale)}>
           Edit
         </MDButton>
-        <MDButton variant="outlined" color="error" onClick={() => handleDeleteConfirmation(sale)}>
+        <MDButton variant="gradient" color="error" onClick={() => handleDeleteConfirmation(sale)}>
           Hapus
         </MDButton>
       </>

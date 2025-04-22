@@ -18,18 +18,21 @@ const getSales = async () => {
 const addSale = async (sale) => {
   try {
     const response = await axios.post(API_URL, sale);
-    return response.data;
+    const result = response.data;
+
+    // Gabungkan data input (sale) dengan ID yang dikembalikan dari backend
+    return { ...sale, id: result.id };
   } catch (error) {
     console.error("Error adding sale:", error);
     throw error;
   }
 };
 
-// Fungsi untuk mengupdate data sales berdasarkan ID
 const updateSale = async (id, sale) => {
   try {
-    const response = await axios.put(`${API_URL}/${id}`, sale);
-    return response.data;
+    await axios.put(`${API_URL}/${id}`, sale);
+    // Kembalikan data lengkap dengan id yang diedit
+    return { ...sale, id };
   } catch (error) {
     console.error("Error updating sale:", error);
     throw error;
